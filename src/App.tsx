@@ -5,6 +5,8 @@ import logoElectron from './assets/logo-electron.svg'
 import './App.scss'
 import ToDo from './components/ToDo'
 
+import { getAllFiles } from './fileIO'
+
 console.log('[App.tsx]', `Hello world from Electron ${process.versions.electron}!`)
 
 const toDoListStyle = {
@@ -17,16 +19,30 @@ const buttonCreateToDoStyle = {
 
 function App() {
   const [count, setCount] = useState(0)
+  const [allFiles, setAllFiles] = useState([])
+
+
+  //Load all toDos created in this system
   useEffect(()=>{
-    console.log("here",process)
-  })
+
+    const getFiles = async()=>{
+      const allFiles = await getAllFiles()
+      setAllFiles(allFiles)
+      console.log(allFiles)
+    }
+
+    getFiles()
+  },[])
+
   return (
     <div className='App'>
       <h1 style={{color:"#6395a3"}}>ToDo</h1>
       <button style={buttonCreateToDoStyle}>Create toDo</button>
 
       <div style={toDoListStyle}>
-        <ToDo/>      
+        {
+          allFiles.map((file,index)=><ToDo key={index} title={file.title} content={file.content}/>)
+        }
 
       </div>
 

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -41,14 +41,16 @@ const buttonsMdalStyle ={
 
 */
 
-export default function ToDo({}) {
-  const [open, setOpen] = React.useState(false);
+export default function ToDo({title:tf,content:tc}) {
+  const [open, setOpen] = useState(false);
+  const [title, setTitle] = useState(tf)
+  const [content, setContent] = useState(tc)
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <div>
-      <Button onClick={handleOpen} style={singleToDoStyle}>Test</Button>
+      <Button onClick={handleOpen} style={singleToDoStyle}>{title}</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -63,6 +65,8 @@ export default function ToDo({}) {
         placeholder='Title'
         fullWidth
         sx={{marginBottom:"1rem"}}
+        value={title}
+        onChange={(e)=>setTitle(e.target.value)}
         />
           <TextField
           id="outlined-multiline-static"
@@ -70,7 +74,9 @@ export default function ToDo({}) {
           rows={8}
           placeholder='Give me a ToDo'
           fullWidth
-        />
+          value={content}
+          onChange={(e)=>setContent(e.target.value)}
+          />
         <div style={buttonsMdalStyle}>
         <Button variant="contained" color='warning' sx={{width:"35%"}} onClick={handleClose}>Discard</Button>
         <Button variant="contained" color='success' sx={{width:"35%"}}>Edit</Button>
