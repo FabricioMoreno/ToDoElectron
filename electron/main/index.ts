@@ -119,3 +119,13 @@ ipcMain.handle('open-win', (_, arg) => {
   }
 })
 
+
+
+// ----------------------------------------------------------------------
+// TODO APP
+
+import {getAllFiles} from "../preload/io"
+
+ipcMain.handle("fileIO:get-all-files",(event,arg)=>{
+    return getAllFiles()
+})
