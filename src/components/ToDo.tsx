@@ -20,7 +20,11 @@ const style = {
 const singleToDoStyle = {
     width: "100%",
     background:"#6395a3",
-    color:"#ffffff"
+    color:"#ffffff",
+    marginBottom:"15px",
+    "&:hover":{
+      backgroundColor:"#49727e"
+    }
 }
 
 const ModalStyle = {
@@ -41,16 +45,20 @@ const buttonsMdalStyle ={
 
 */
 
-export default function ToDo({title:tf,content:tc}) {
+export default function ToDo({title:tf,content:tc}:{title:String, content:String}) {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState(tf)
   const [content, setContent] = useState(tc)
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  function capitalize(str:string) {
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  }
+
   return (
     <div>
-      <Button onClick={handleOpen} style={singleToDoStyle}>{title}</Button>
+      <Button onClick={handleOpen} sx={singleToDoStyle}>{title.toUpperCase()}</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -66,7 +74,7 @@ export default function ToDo({title:tf,content:tc}) {
         fullWidth
         sx={{marginBottom:"1rem"}}
         value={title}
-        onChange={(e)=>setTitle(e.target.value)}
+        onChange={(e)=>setTitle(capitalize(e.target.value))}
         />
           <TextField
           id="outlined-multiline-static"
@@ -75,7 +83,7 @@ export default function ToDo({title:tf,content:tc}) {
           placeholder='Give me a ToDo'
           fullWidth
           value={content}
-          onChange={(e)=>setContent(e.target.value)}
+          onChange={(e)=>setContent(capitalize(e.target.value))}
           />
         <div style={buttonsMdalStyle}>
         <Button variant="contained" color='warning' sx={{width:"35%"}} onClick={handleClose}>Discard</Button>
