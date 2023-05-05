@@ -14,11 +14,11 @@ const toDoListStyle = {
 }
 const buttonCreateToDoStyle = {
   background:"#6376B0",
-  color:"#ffffff"
+  color:"#ffffff",
+  marginBottom:"20px"
 }
 
 function App() {
-  const [count, setCount] = useState(0)
   const [allFiles, setAllFiles] = useState([])
 
 
@@ -41,7 +41,7 @@ function App() {
 
       <div style={toDoListStyle}>
         {
-          allFiles.map((file,index)=><ToDo key={index} title={file.title} content={file.content}/>)
+          allFiles.map((file:{title:String,content:String},index)=><ToDo key={index} title={file.title} content={file.content}/>)
         }
 
       </div>
