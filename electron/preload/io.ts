@@ -9,7 +9,7 @@ const readdirAsync = promisify(fs.readdir)
 const appDir = path.resolve(os.homedir(),"toDoElectron")
 
 //Create directory to save all toDos
-fs.mkdir(appDir,{recursive:true},(err)=>{
+fs.mkdir(appDir,{recursive:true},(err:Error)=>{
     if(err) throw err
     console.log("Directory created")
 })
@@ -20,7 +20,7 @@ const getAllFiles = async() =>{
         const allFilesPaths = await readdirAsync(appDir)
 
         const allFiles = await Promise.all(
-             allFilesPaths.map(async(filePath)=>{
+             allFilesPaths.map(async(filePath:string)=>{
             return{
                 title: filePath.split(".")[0],
                 content:await readFile(filePath)
@@ -49,8 +49,8 @@ const readFile = async(fileName="")=>{
 
 const writeFile = async (fileName="temp.txt", fileContent = "") =>{
     try{
-        const filePath = path.resolve(appDir,fileName)   
-        await writeFileAsync(filePath,fileContent,'utf8')
+        const filePath = path.resolve(appDir,fileName+".txt")   
+        await writeFileAsync(filePath,fileContent.trim(),'utf8')
     }catch(err){
         console.error("Write file error",err)
     }
