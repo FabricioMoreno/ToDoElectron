@@ -37,8 +37,8 @@ function App() {
 
       <div style={toDoListStyle}>
         {
-          allFiles.map((file:{title:string,content:string},index:number)=><ToDo 
-          key={index}
+          allFiles.map((file:{id:string,title:string,content:string})=><ToDo
+          key={file.id}
           title={file.title} 
           content={file.content} 
           type={actions.edit}/>)

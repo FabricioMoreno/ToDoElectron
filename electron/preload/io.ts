@@ -22,6 +22,7 @@ const getAllFiles = async() =>{
         const allFiles = await Promise.all(
              allFilesPaths.map(async(filePath:string)=>{
             return{
+                id: `${new Date().getTime()}-${filePath}`,
                 title: filePath.split(".")[0],
                 content:await readFile(filePath)
             }
