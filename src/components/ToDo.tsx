@@ -115,6 +115,20 @@ export default function ToDo({
     }
     
     if(action === actions.edit){
+      try{
+        console.log(title,content,"-editing--")
+        await writeFile(title,content);
+        await loadAlltFiles()
+        handleClose()
+        Swal.fire({
+          icon: 'success',
+          title: 'Successfully',
+          text: 'ToDo edited successfully!',
+        })
+
+      }catch(err){
+        console.error("Error in editing a file")
+      }
       return
     }
 
