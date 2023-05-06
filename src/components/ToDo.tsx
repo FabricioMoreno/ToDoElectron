@@ -187,7 +187,11 @@ export default function ToDo({
               variant="contained"
               color="warning"
               sx={{ width: "35%" }}
-              onClick={handleClose}
+              onClick={()=>{
+                setTitle(tf),
+                setContent(tc)
+                handleClose()
+              }}
             >
               Discard
             </Button>
