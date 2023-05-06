@@ -107,6 +107,11 @@ export default function ToDo({
         await writeFile(title,content);
         await loadAlltFiles()
         handleClose()
+        Swal.fire({
+          icon: 'success',
+          title: 'Successfully',
+          text: 'ToDo created successfully!',
+        })
 
       }catch(err){
         console.error("Error in create a file")
