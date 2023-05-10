@@ -8,6 +8,7 @@ import ToDo from './components/ToDo'
 import { getAllFiles } from './fileIO'
 import actions from './actions'
 import {GlobalContext} from "./contexts/GlobalContext"
+import { Box } from '@mui/material'
 
 console.log('[App.tsx]', `Hello world from Electron ${process.versions.electron}!`)
 
@@ -36,7 +37,7 @@ function App() {
       <ToDo title="" content="" type={actions.create}/>
 
       <div style={toDoListStyle}>
-        {
+        {allFiles.length===0? <Box>No ToDo</Box>:
           allFiles.map((file:{id:string,title:string,content:string})=><ToDo
           key={file.id}
           id = {file.id}
