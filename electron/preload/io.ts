@@ -5,6 +5,8 @@ const { promisify } = require("util")
 const readFileAsync = promisify(fs.readFile)
 const writeFileAsync = promisify(fs.writeFile)
 const readdirAsync = promisify(fs.readdir)
+const getStatAsync = promisify(fs.stat)
+const deleteFileAsync = promisify(fs.unlink)
 
 const appDir = path.resolve(os.homedir(),"toDoElectron")
 
@@ -14,6 +16,17 @@ fs.mkdir(appDir,{recursive:true},(err:Error)=>{
     console.log("Directory created")
 })
 
+const getSpecificStatFromFile = async(statInfo:string,filePath:string): Promise<string|null|undefined|Date>=>{
+    try{
+        const info = await getStatAsync(path.join(appDir,filePath))
+        const {[statInfo]:statFile}= info
+        
+        return statFile
+    }catch(err){
+        console.error("Get all stat file error",err)
+    }
+}
+
 
 const getAllFiles = async() =>{
     try{
@@ -22,7 +35,7 @@ const getAllFiles = async() =>{
         const allFiles = await Promise.all(
              allFilesPaths.map(async(filePath:string)=>{
             return{
-                id: `${new Date().getTime()}-${filePath}`,
+                id: await getSpecificStatFromFile("birthtime",filePath)+"|"+filePath,
                 title: filePath.split(".")[0],
                 content:await readFile(filePath)
             }
@@ -57,10 +70,27 @@ const writeFile = async (fileName="temp.txt", fileContent = "") =>{
     }
 }
 
+const deleteFile = async (idFile:String) =>{
+    try{
+        const [dateTimeFile,nameFile]= idFile.split("|")
+        const dateTimeFileOriginal = await getSpecificStatFromFile("birthtime",nameFile)
+
+        if(new Date(dateTimeFile).toString() == dateTimeFileOriginal?.toString()){
+
+           await deleteFileAsync(path.join(appDir,nameFile))
+
+        }
+
+    }catch(err){
+        console.error("Delete file error",err)
+    }
+}
+
 
 export{
     getAllFiles,
     readFile,
-    writeFile
+    writeFile,
+    deleteFile
 
 }
