@@ -62,7 +62,7 @@ export default function ToDo({
   content: tc,
   type,
 }: {
-  id?:string,
+  id?: string;
   title: string;
   content: string;
   type: string;
@@ -151,23 +151,21 @@ export default function ToDo({
         >
           <Button onClick={handleOpen} sx={singleToDoStyle}>
             {title.toUpperCase()}
-            <IconButton
-              sx={{
-                position: "absolute",
-                right: "0px",
-                "&:hover, & .Mui-focusVisible": {
-                  backgroundColor: "rgb(10, 89, 109)",
-                  color: "white",
-                },
-              }}
-              onClick={async()=>{
-                await deleteFile(id)
-                await loadAlltFiles()
-              }}
-            >
-              <CloseIcon />
-            </IconButton>
           </Button>
+          <IconButton
+            sx={{
+              "&:hover, & .Mui-focusVisible": {
+                backgroundColor: "rgb(10, 89, 109)",
+                color: "white",
+              },
+            }}
+            onClick={async () => {
+              await deleteFile(id);
+              await loadAlltFiles();
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
         </div>
       ) : (
         <button
