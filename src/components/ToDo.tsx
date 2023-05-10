@@ -7,7 +7,7 @@ import { TextField, IconButton } from "@mui/material";
 import Swal from "sweetalert2";
 
 import actions from "../actions";
-import { writeFile } from "../fileIO";
+import { writeFile, deleteFile } from "../fileIO";
 import { GlobalContext } from "../contexts/GlobalContext";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -57,10 +57,12 @@ const buttonCreateToDoStyle = {
 */
 
 export default function ToDo({
+  id,
   title: tf,
   content: tc,
   type,
 }: {
+  id?:string,
   title: string;
   content: string;
   type: string;
@@ -157,6 +159,10 @@ export default function ToDo({
                   backgroundColor: "rgb(10, 89, 109)",
                   color: "white",
                 },
+              }}
+              onClick={async()=>{
+                await deleteFile(id)
+                await loadAlltFiles()
               }}
             >
               <CloseIcon />

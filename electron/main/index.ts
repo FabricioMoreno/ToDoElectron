@@ -124,7 +124,7 @@ ipcMain.handle('open-win', (_, arg) => {
 // ----------------------------------------------------------------------
 // TODO APP
 
-import {getAllFiles,writeFile} from "../preload/io"
+import {getAllFiles,writeFile, deleteFile} from "../preload/io"
 
 ipcMain.handle("fileIO:get-all-files",(event,arg)=>{
     return getAllFiles()
@@ -133,4 +133,8 @@ ipcMain.handle("fileIO:get-all-files",(event,arg)=>{
 ipcMain.handle("fileIO:write-file",(event,title,content)=>{
   console.log(title,content)
   return writeFile(title,content)
+})
+
+ipcMain.handle("fileIO:delete-file",(event,id)=>{
+  return deleteFile(id)
 })

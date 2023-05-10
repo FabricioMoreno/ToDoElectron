@@ -39,6 +39,7 @@ function App() {
         {
           allFiles.map((file:{id:string,title:string,content:string})=><ToDo
           key={file.id}
+          id = {file.id}
           title={file.title} 
           content={file.content} 
           type={actions.edit}/>)
