@@ -81,3 +81,7 @@ export default {
 
 - [C/C++ addons, Node.js modules - Pre-Bundling](https://github.com/electron-vite/vite-plugin-electron-renderer#dependency-pre-bundling)
 - [dependencies vs devDependencies](https://github.com/electron-vite/vite-plugin-electron-renderer#dependencies-vs-devdependencies)
+
+## 😎 Install the program
+
+Inside the executable directory is a file .exe ready to be installed on your computer. Just click it and follow the installation processes (this program only works for computers that use windows).
